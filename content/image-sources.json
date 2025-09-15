@@ -1,0 +1,12 @@
+[
+  {
+    "id": "sample1",
+    "src": "/images/sample1.jpg",
+    "alt": "示例图片1"
+  },
+  {
+    "id": "sample2",
+    "src": "/images/sample2.jpg",
+    "alt": "示例图片2"
+  }
+]
