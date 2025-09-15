@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局字体 */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0a0a0a; /* 深色背景 */
+  color: #f5f5f5; /* 默认文字白灰 */
+}
+
+/* 主色调：橘红 */
+:root {
+  --nav-h: 80px; /* 导航条高度 */
+  --primary: #ff4d1c;
+  --secondary: #ff7849;
+  --accent: #ffb347;
+  --bg-dark: #0a0a0a;
+}
+
+/* 链接样式 */
+a {
+  color: var(--primary);
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--secondary);
+}
+
+/* 标题增强 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+/* 按钮通用样式 */
+.btn-primary {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 77, 28, 0.6);
+}
+
+/* 页面容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 功能展示区域样式 */
+.section.feature-hero{ 
+  padding: clamp(32px, 6vw, 64px) 0;
+}
+
+.feature-hero .container{
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 20px;
+}
+
+/* 包裹容器：保持16:9比例 */
+.hero-image-wrap{
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;           /* 自动锁定比例 */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,.08);
+  transform: translateZ(0);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.hero-image-wrap:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px rgba(0,0,0,.12);
+}
+
+.hero-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 自动裁切，不拉伸 */
+  object-position: center;
+  display: block;
+}
+
+/* Hero轮播图片定位优化 */
+/* 真正的全屏Hero区域 */
+:root { 
+  --nav-h: 64px; /* 导航条高度 */
+}
+
+.hero--fullbleed {
+  position: relative;
+  /* 突破容器限制，左右贴边 */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  /* 真正的首屏高度，兼容iOS */
+  height: clamp(560px, calc(100dvh - var(--nav-h)), 960px);
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--img);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--pos, 50% 50%);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+/* 导航箭头 - 绝对定位不占布局高度 */
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.hero-nav:hover {
+  background: rgba(229, 75, 28, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-nav--prev {
+  left: 30px;
+}
+
+.hero-nav--next {
+  right: 30px;
+}
+
+/* 圆点指示器 - 绝对定位不占布局高度 */
+.hero-dots {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 12px;
+}
+
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+  background: #E54B1C;
+  transform: scale(1.2);
+}
+
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  :root { 
+    --nav-h: 80px; 
+  }
+}
+
+/* ===== Hero 满屏（最终版，放在 globals.css 最末尾） ===== */
+:root {
+  --nav-h: 80px; /* 桌面导航实际高度，不是 80 就改这里 */
+}
+
+.hero-fullbleed {
+  position: relative !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  height: calc(100dvh - var(--nav-h)) !important;
+  min-height: 560px !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+}
+
+.hero-fullbleed img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 50% 90% !important;
+  display: block !important;
+  max-width: none !important;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --nav-h: 56px;
+  }
+  .hero-fullbleed {
+    min-height: 420px !important;
+  }
+}
+
+/* ===== Hero: 精准核覆写，不受外层容器影响 ===== */
+html, body { height: 100% !important; margin: 0 !important; padding: 0 !important; }
+
+/* 让 Hero 保证是"页面根级的满宽满高" */
+body > .hero-fullbleed,
+#root > .hero-fullbleed,
+#__next > .hero-fullbleed {
+  position: relative !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  height: calc(100dvh - var(--nav-h)) !important;
+  min-height: 560px !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border: 0 !important;
+  z-index: 0 !important;
+}
+
+/* 即便被包进容器，也强制让它突破出来 */
+.hero-fullbleed {
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  height: calc(100dvh - var(--nav-h)) !important;
+  min-height: 560px !important;
+}
+
+/* 图片铺满裁切（保持你之前的焦点） */
+.hero-fullbleed img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: 50% 90% !important;
+  display: block !important;
+  max-width: none !important;
+}
+
+/* 手机端导航高度 */
+@media (max-width: 900px){
+  :root { --nav-h: 56px; }
+  .hero-fullbleed { min-height: 420px !important; }
+}
